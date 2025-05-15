@@ -5,8 +5,8 @@
 # QA BASE
 # ======================================================================================================================
 web-application:
-  base-url: "https://google.com"
+  base-url: "https://www.automationexercise.com"
   browser: "chrome"
   browse-window-size: "1920x1080"
   timeout: 10000
-  headless: true
+  headless: false
