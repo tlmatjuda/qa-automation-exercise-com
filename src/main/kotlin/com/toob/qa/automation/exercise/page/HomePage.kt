@@ -16,24 +16,20 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 
 	val CSS_SELECTOR_LOGIN = "a[href='/login']"
 
-	@Step("Open Home page")
 	fun open(): HomePage {
-		open(webUIConfigs.baseUrl)
+		step("Open Home page") {
+			open(webUIConfigs.baseUrl)
+		}
 		return this
 	}
 
-	@Step("Click on 'Signup / Login' link")
-	fun clickSignupLogin(): SignupPage {
-		byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
-		return pageFactory.get<SignupPage>()
-	}
-
-	@Step("Verify Components")
 	override fun verifyVisible(): HomePage {
 		// Verify the two green buttons
-		step("Expect \"Green Buttons\" to load") {
-			byCss("a[href='/test_cases']").shouldBe(visible)
-			byCss("a[href='/api_list']").shouldBe(visible)
+		step("Verify Components") {
+			step("Expect \"Green Buttons\" to load") {
+				byCss("a[href='/test_cases']").shouldBe(visible)
+				byCss("a[href='/api_list']").shouldBe(visible)
+			}
 		}
 
 		// Verify "Signup / Login" link
@@ -43,6 +39,13 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 			byCss(CSS_SELECTOR_LOGIN).shouldHave(textElement).shouldBe(visible)
 		}
 		return this
+	}
+
+	fun clickSignupLogin(): SignupPage {
+		step("Click on 'Signup / Login' link") {
+			byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
+		}
+		return pageFactory.get<SignupPage>()
 	}
 
 }

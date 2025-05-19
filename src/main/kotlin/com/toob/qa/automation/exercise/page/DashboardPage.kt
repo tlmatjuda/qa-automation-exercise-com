@@ -15,10 +15,11 @@ class DashboardPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 	var userName: String? = null
 
 
-	@Step("Verify user is logged in as '{name}'")
 	override fun verifyVisible(): DashboardPage {
-		step("Expect 'Logged in as $userName' to be visible") {
-			byCss("a[href='/profile']").shouldHave(text("Logged in as $userName")).shouldBe(visible)
+		step("Verify user is logged in as '{name}'") {
+			step("Expect 'Logged in as $userName' to be visible") {
+				byCss("a[href='/profile']").shouldHave(text("Logged in as $userName")).shouldBe(visible)
+			}
 		}
 		return this
 	}
@@ -28,10 +29,11 @@ class DashboardPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 		return this
 	}
 
-	@Step("Click 'Delete Account' button")
 	fun clickDeleteAccount(): AccountDeletedPage {
-		step("Click 'Delete Account' link or button") {
-			byCss("a[href='/delete_account']").shouldBe(visible).click()
+		step("Click 'Delete Account' button") {
+			step("Click 'Delete Account' link or button") {
+				byCss("a[href='/delete_account']").shouldBe(visible).click()
+			}
 		}
 		return pageFactory.get<AccountDeletedPage>()
 	}

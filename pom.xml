@@ -3,6 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>com.toob.qabase</groupId>
+		<artifactId>qabase-framework</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
 	<groupId>com.toob.qa.automation.exercise</groupId>
 	<artifactId>qa-automation-exercise-com</artifactId>
 	<version>0.0.1</version>
@@ -25,36 +31,9 @@
 
 		<!-- QA BASE by TOOB -->
 		<dependency>
-			<groupId>com.toob</groupId>
+			<groupId>com.toob.qabase</groupId>
 			<artifactId>qabase-web-ui</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.jetbrains.kotlin</groupId>
-				<artifactId>kotlin-maven-plugin</artifactId>
-				<configuration>
-					<args>
-						<arg>-Xjsr305=strict</arg>
-					</args>
-					<compilerPlugins>
-						<plugin>spring</plugin>
-					</compilerPlugins>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.jetbrains.kotlin</groupId>
-						<artifactId>kotlin-maven-allopen</artifactId>
-						<version>${kotlin.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

@@ -13,18 +13,20 @@ import org.springframework.stereotype.Component
 class AccountDeletedPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 
 
-	@Step("Verify 'ACCOUNT DELETED!' is visible")
 	override fun verifyVisible(): AccountDeletedPage {
-		step("Expect 'ACCOUNT DELETED!' message to be visible") {
-			byCss("h2").shouldHave(text("Account Deleted!")).shouldBe(visible)
+		step("Verify 'ACCOUNT DELETED!' is visible") {
+			step("Expect 'ACCOUNT DELETED!' message to be visible") {
+				byCss("h2").shouldHave(text("Account Deleted!")).shouldBe(visible)
+			}
 		}
 		return this
 	}
 
-	@Step("Click 'Continue' after account deletion")
 	fun clickContinue(): HomePage {
-		step("Click 'Continue' button") {
-			byCss("[data-qa='continue-button']").shouldBe(visible).click()
+		step("Click 'Continue' after account deletion") {
+			step("Click 'Continue' button") {
+				byCss("[data-qa='continue-button']").shouldBe(visible).click()
+			}
 		}
 		return pageFactory.get<HomePage>()
 	}
