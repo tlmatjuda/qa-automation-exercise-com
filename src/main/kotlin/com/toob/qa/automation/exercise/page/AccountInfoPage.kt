@@ -2,6 +2,7 @@ package com.toob.qa.automation.exercise.page
 
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Selenide.executeJavaScript
 import com.codeborne.selenide.Selenide.open
 import com.toob.qa.automation.exercise.model.BasicDetails
 import com.toob.qa.automation.exercise.model.UserAddress
@@ -9,6 +10,7 @@ import com.toob.qabase.core.AllureExtensions.step
 import com.toob.qabase.webui.ext.SelenideExtensions.byCss
 import com.toob.qabase.webui.page.AbstractPage
 import com.toob.qabase.webui.page.PageFactory
+import io.qameta.allure.Allure.step
 import io.qameta.allure.Step
 import org.springframework.stereotype.Component
 
@@ -63,6 +65,10 @@ class AccountInfoPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 	}
 
 	fun clickCreateAccount(): AccountCreatedPage {
+		step("Slightly scroll down to avoid UI overlap") {
+			executeJavaScript<Void>("window.scrollBy(0, 200)") // scrolls down 100px
+		}
+
 		step("Click 'Create Account' button") {
 			step("Submit the account creation form") {
 				byCss("[data-qa='create-account']").shouldBe(visible).click()
