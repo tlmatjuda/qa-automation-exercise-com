@@ -6,9 +6,9 @@ import com.codeborne.selenide.Selenide.open
 import com.toob.qabase.core.AllureExtensions.step
 import com.toob.qabase.webui.WebUIConfigs
 import com.toob.qabase.webui.ext.SelenideExtensions.byCss
+import com.toob.qabase.webui.ext.SelenideExtensions.eleCollection
 import com.toob.qabase.webui.page.AbstractPage
 import com.toob.qabase.webui.page.PageFactory
-import io.qameta.allure.Step
 import org.springframework.stereotype.Component
 
 @Component
@@ -46,6 +46,19 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 			byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
 		}
 		return pageFactory.get<SignupPage>()
+	}
+
+
+	fun getLoggedInUsername() = step("Verify logged-in username is displayed") {
+		byCss("a[href='/logout']").shouldBe(visible) // Ensure user is logged in
+		eleCollection("ul.navbar-nav li a")
+			.findBy(text("Logged in as"))
+			.shouldBe(visible)
+	}
+
+	fun logout(): HomePage = step("Click Logout link") {
+		byCss("a[href='/logout']").click()
+		this
 	}
 
 }
