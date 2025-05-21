@@ -1,11 +1,8 @@
 package com.toob.qa.automation.exercise.page
 
 import com.codeborne.selenide.Condition.text
-import com.codeborne.selenide.Condition.visible
 import com.toob.qabase.core.AllureExtensions.step
-import com.toob.qabase.webui.ext.SelenideExtensions
 import com.toob.qabase.webui.ext.SelenideExtensions.byCss
-import com.toob.qabase.webui.ext.SelenideExtensions.eleCollection
 import com.toob.qabase.webui.page.AbstractPage
 import com.toob.qabase.webui.page.PageFactory
 import org.springframework.stereotype.Component
