@@ -25,7 +25,7 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 
 	override fun verifyVisible(): HomePage {
 		// Verify the two green buttons
-		step("Verify Components") {
+		step("Verify Home Page component are visible") {
 			step("Expect \"Green Buttons\" to load") {
 				byCss("a[href='/test_cases']").shouldBe(visible)
 				byCss("a[href='/api_list']").shouldBe(visible)
@@ -41,14 +41,6 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 		return this
 	}
 
-	fun clickSignupLogin(): SignupPage {
-		step("Click on 'Signup / Login' link") {
-			byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
-		}
-		return pageFactory.get<SignupPage>()
-	}
-
-
 	fun fetchLoggedInUserElement() = step("Verify logged-in username is displayed") {
 		byCss("a[href='/logout']").shouldBe(visible) // Ensure user is logged in
 		eleCollection("ul.navbar-nav li a")
@@ -61,10 +53,22 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 		this
 	}
 
+	fun clickSignupLogin(): SignupPage {
+		step("Click on 'Signup / Login' link") {
+			byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
+		}
+		return pageFactory.get<SignupPage>()
+	}
+
 	fun clickContactUs(): HomePage = step("Click on 'Contact Us' link") {
 		byCss("a[href='/contact_us']")
 			.shouldBe(visible).click()
 		this
+	}
+
+	fun clickTestCases(): TestCasesPage = step("Click on 'Test Cases' link") {
+		byCss("a[href='/test_cases']").shouldBe(visible).click()
+		pageFactory.get<TestCasesPage>()
 	}
 
 }
