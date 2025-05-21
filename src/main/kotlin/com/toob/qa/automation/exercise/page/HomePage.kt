@@ -53,12 +53,11 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 		this
 	}
 
-	fun clickSignupLogin(): SignupPage {
-		step("Click on 'Signup / Login' link") {
-			byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
-		}
-		return pageFactory.get<SignupPage>()
+	fun clickSignupLogin(): SignupPage = step("Click on 'Signup / Login' link") {
+		byCss(CSS_SELECTOR_LOGIN).shouldBe(visible).click()
+		pageFactory.get<SignupPage>()
 	}
+
 
 	fun clickContactUs(): HomePage = step("Click on 'Contact Us' link") {
 		byCss("a[href='/contact_us']")
