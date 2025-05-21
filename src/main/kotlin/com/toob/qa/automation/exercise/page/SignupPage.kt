@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise.page
 
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Condition.text
 import com.toob.qabase.core.AllureExtensions.step
 import com.toob.qabase.webui.ext.SelenideExtensions.byCss
 import com.toob.qabase.webui.page.AbstractPage
@@ -24,11 +25,11 @@ class SignupPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 		return this
 	}
 
-	fun clickSignup(): AccountInfoPage {
+	fun clickSignup(): SignupPage {
 		step("Click 'Signup' button") {
 			byCss("[data-qa='signup-button']").shouldBe(visible).click()
 		}
-		return pageFactory.get<AccountInfoPage>()
+		return this
 	}
 
 	override fun verifyVisible(): SignupPage {
@@ -39,5 +40,12 @@ class SignupPage(pageFactory: PageFactory) : AbstractPage(pageFactory) {
 		}
 		return this
 	}
+
+    fun verifyEmailAlreadyExistsError(): SignupPage =
+		step("Verify 'Email Address already exist!' error message is displayed") {
+			byCss("form[action='/signup'] p")
+				.shouldHave(text("Email Address already exist!"))
+			this
+    }
 
 }

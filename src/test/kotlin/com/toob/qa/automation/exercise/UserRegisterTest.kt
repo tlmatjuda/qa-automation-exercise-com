@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise
 
 
+import com.toob.qa.automation.exercise.page.AccountInfoPage
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qabase.QaBaseTest
 import com.toob.qabase.webui.page.PageFactory
@@ -8,20 +9,28 @@ import io.qameta.allure.Description
 import io.qameta.allure.Epic
 import io.qameta.allure.Feature
 import io.qameta.allure.Story
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestMethodOrder
 
 @Epic("Automation Exercise Web")
 @Feature("User Registration")
 @Story("Register and delete user")
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @QaBaseTest
-class RegisterUserTest(pageFactory: PageFactory) {
+class UserRegisterTest(
+    pageFactory: PageFactory,
+    private val autoExProperties: AutoExProperties) {
 
     val USER_NAME = "qabase"
     val USER_EMAIL = "${USER_NAME}${System.currentTimeMillis()}@toobprojects.com"
 
     val homePage = pageFactory.get<HomePage>()
+    val accountInfoPage = pageFactory.get<AccountInfoPage>()
 
     @Test
+    @Order(1)
     @Description("Complete registration and account deletion flow")
     fun registerAndDeleteUser() {
 
@@ -37,7 +46,7 @@ class RegisterUserTest(pageFactory: PageFactory) {
         // 5. Verify 'New User Signup!' is visible
         // 6. Enter name and email address
         // 7. Click 'Signup' button
-        val accountInfoPage = signupPage
+        signupPage
             .verifyVisible()
             .enterNameAndEmail(USER_NAME, USER_EMAIL)
             .clickSignup()
@@ -67,6 +76,27 @@ class RegisterUserTest(pageFactory: PageFactory) {
 
         // 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         accountDeletedPage.verifyVisible().clickContinue()
+    }
+
+    @Test
+    @Order(2)
+    @Description("Register User with existing email")
+    fun registerExistingUser() {
+
+        val signupPage = homePage
+            .open()
+            .verifyVisible()
+            .clickSignupLogin()
+
+        val accountInfoPage = signupPage
+            .verifyVisible()
+            .enterNameAndEmail(
+                autoExProperties.userName,
+                autoExProperties.userEmail
+            )
+            .clickSignup()
+            .verifyEmailAlreadyExistsError()
+
     }
 
 }

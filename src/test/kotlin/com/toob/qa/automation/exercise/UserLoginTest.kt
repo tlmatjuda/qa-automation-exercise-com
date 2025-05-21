@@ -44,7 +44,7 @@ class UserLoginTest(
             .enterPassword(autoExProps.userPassword)
             .clickLogin()
 
-        homePage.getLoggedInUsername()
+        homePage.fetchLoggedInUserElement()
             .shouldHave(text("Logged in as ${autoExProps.userName}"))
 
         homePage.logout()

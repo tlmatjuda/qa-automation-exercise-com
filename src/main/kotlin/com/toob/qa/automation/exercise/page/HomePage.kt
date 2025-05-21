@@ -49,7 +49,7 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 	}
 
 
-	fun getLoggedInUsername() = step("Verify logged-in username is displayed") {
+	fun fetchLoggedInUserElement() = step("Verify logged-in username is displayed") {
 		byCss("a[href='/logout']").shouldBe(visible) // Ensure user is logged in
 		eleCollection("ul.navbar-nav li a")
 			.findBy(text("Logged in as"))
