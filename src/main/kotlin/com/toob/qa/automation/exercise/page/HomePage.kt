@@ -61,4 +61,10 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 		this
 	}
 
+	fun clickContactUs(): HomePage = step("Click on 'Contact Us' link") {
+		byCss("a[href='/contact_us']")
+			.shouldBe(visible).click()
+		this
+	}
+
 }

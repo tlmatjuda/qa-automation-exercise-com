@@ -96,7 +96,6 @@ class UserRegisterTest(
             )
             .clickSignup()
             .verifyEmailAlreadyExistsError()
-
     }
 
 }
