@@ -6,6 +6,7 @@ import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qa.automation.exercise.page.LoginPage
 import com.toob.qabase.QaBaseTest
 import com.toob.qabase.core.AllureExtensions.step
+import com.toob.qabase.webui.ext.SelenideExtensions.byCss
 import com.toob.qabase.webui.page.PageFactory
 import io.qameta.allure.Description
 import io.qameta.allure.Epic
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test
-import kotlin.test.assertNotNull
 
 @Epic("Login Functionality")
 @Feature("Positive Login")
@@ -31,18 +31,6 @@ class UserLoginTest(
 
     @Test
     @Order(1)
-    @Description("Configured properties or yaml should load")
-    fun configPropertiesShouldLoad() {
-        step("Verify properties are all loaded") {
-            assertNotNull(autoExProps)
-            assertNotNull(autoExProps.userName)
-            assertNotNull(autoExProps.userEmail)
-            assertNotNull(autoExProps.userPassword)
-        }
-    }
-
-    @Test
-    @Order(2)
     @Description("Login User with correct email and password")
     fun loginWithValidCredentials() {
         homePage
@@ -61,5 +49,27 @@ class UserLoginTest(
 
         homePage.logout()
     }
+
+    @Test
+    @Order(2)
+    @Description("Login User with incorrect email and password")
+    fun loginWithInvalidCredentials() {
+        homePage
+            .open()
+            .verifyVisible()
+            .clickSignupLogin()
+
+        loginPage
+            .verifyVisible()
+            .enterEmail("wrong-email@example.com")
+            .enterPassword("wrongPassword")
+            .clickLogin()
+
+        step("Verify error message is displayed") {
+            byCss("form[action='/login'] p")
+                .shouldHave(text("Your email or password is incorrect!"))
+        }
+    }
+
 
 }

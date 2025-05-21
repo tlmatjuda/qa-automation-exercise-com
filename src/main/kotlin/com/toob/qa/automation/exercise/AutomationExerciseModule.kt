@@ -5,6 +5,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan
 
 @QaBaseAutomationModule
-@ComponentScan( basePackageClasses = [QaAutomationExercisePackage::class])
+@ComponentScan( basePackageClasses = [AutomationExercisePackage::class])
 @EnableConfigurationProperties(AutoExProperties::class)
 class QaAutomationExerciseComApplication
