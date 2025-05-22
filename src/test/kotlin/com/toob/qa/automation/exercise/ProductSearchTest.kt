@@ -1,0 +1,37 @@
+package com.toob.qa.automation.exercise
+
+
+import com.toob.qa.automation.exercise.page.HomePage
+import com.toob.qa.automation.exercise.page.ProductsPage
+import com.toob.qabase.QaBaseTest
+import com.toob.qabase.webui.page.PageFactory
+import io.qameta.allure.Description
+import io.qameta.allure.Epic
+import io.qameta.allure.Feature
+import io.qameta.allure.Story
+import kotlin.test.Test
+
+
+
+@Epic("Product Management")
+@Feature("Product Search")
+@Story("Verify product search functionality")
+@QaBaseTest
+class ProductSearchTest(pageFactory: PageFactory) {
+
+    val homePage = pageFactory.get<HomePage>()
+    val productsPage = pageFactory.get<ProductsPage>()
+
+    @Test
+    @Description("verify search returns relevant products")
+    fun verifyProductSearch() {
+        homePage
+            .open()
+            .clickProducts()
+
+        productsPage
+            .searchForProduct("top")
+            .verifySearchResultsContain("top")
+    }
+
+}
