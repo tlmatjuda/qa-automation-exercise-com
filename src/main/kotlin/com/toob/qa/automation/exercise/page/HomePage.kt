@@ -70,4 +70,9 @@ class HomePage(val webUIConfigs: WebUIConfigs, pageFactory: PageFactory) : Abstr
 		pageFactory.get<TestCasesPage>()
 	}
 
+	fun clickProducts(): ProductsPage = step("Click on 'Products' link") {
+		byCss("a[href='/products']").shouldBe(visible).click()
+		pageFactory.get<ProductsPage>()
+	}
+
 }
