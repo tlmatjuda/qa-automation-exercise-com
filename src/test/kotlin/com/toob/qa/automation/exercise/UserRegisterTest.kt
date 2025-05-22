@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise
 
 
+import com.toob.qa.automation.exercise.AutoExSupport.AUTOMATIONEXERCISE_EPIC
 import com.toob.qa.automation.exercise.page.AccountInfoPage
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qabase.QaBaseTest
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
 
-@Epic("Automation Exercise Web")
+@Epic(AUTOMATIONEXERCISE_EPIC)
 @Feature("User Registration")
 @Story("Register and delete user")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)

@@ -6,7 +6,7 @@ import com.toob.qabase.webui.ext.SelenideExtensions.byCss
 object AutoExSupport {
 
 	const val AUTOMATIONEXERCISE_COM = "automationexercise-com"
-	const val RESOURCE_PATH = "src/test/resources"
+	const val AUTOMATIONEXERCISE_EPIC = "Automation Exercise"
 
 	fun inputDataQaElementByCss(elementName: String): SelenideElement =
 		byCss("input[data-qa='$elementName']")

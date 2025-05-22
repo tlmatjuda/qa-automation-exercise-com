@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise
 
 
+import com.toob.qa.automation.exercise.AutoExSupport.AUTOMATIONEXERCISE_EPIC
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qabase.QaBaseTest
 import com.toob.qabase.webui.page.PageFactory
@@ -12,7 +13,7 @@ import kotlin.test.Test
 
 
 
-@Epic("Automation Exercise Web")
+@Epic(AUTOMATIONEXERCISE_EPIC)
 @Feature("Product Browsing")
 @Story("Verify All Products and Product Detail Page")
 @QaBaseTest

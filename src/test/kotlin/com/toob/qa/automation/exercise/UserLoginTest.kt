@@ -2,6 +2,7 @@ package com.toob.qa.automation.exercise
 
 
 import com.codeborne.selenide.Condition.text
+import com.toob.qa.automation.exercise.AutoExSupport.AUTOMATIONEXERCISE_EPIC
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qa.automation.exercise.page.LoginPage
 import com.toob.qabase.QaBaseTest
@@ -17,7 +18,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test
 
-@Epic("Login Functionality")
+@Epic(AUTOMATIONEXERCISE_EPIC)
 @Feature("Positive Login")
 @Story("User logs in with credentials")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)

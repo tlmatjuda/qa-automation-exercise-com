@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise
 
 
+import com.toob.qa.automation.exercise.AutoExSupport.AUTOMATIONEXERCISE_EPIC
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qa.automation.exercise.page.SubscriptionPage
 import com.toob.qabase.QaBaseTest
@@ -12,7 +13,7 @@ import io.qameta.allure.Feature
 import io.qameta.allure.Story
 import org.junit.jupiter.api.Test
 
-@Epic("Automation Exercise Web")
+@Epic(AUTOMATIONEXERCISE_EPIC)
 @Feature("Home Page UI")
 @Story("Verify essential elements load on Home Page")
 @QaBaseTest

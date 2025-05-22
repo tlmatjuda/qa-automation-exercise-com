@@ -1,6 +1,7 @@
 package com.toob.qa.automation.exercise
 
 
+import com.toob.qa.automation.exercise.AutoExSupport.AUTOMATIONEXERCISE_EPIC
 import com.toob.qa.automation.exercise.page.HomePage
 import com.toob.qa.automation.exercise.page.ProductsPage
 import com.toob.qabase.QaBaseTest
@@ -13,7 +14,7 @@ import kotlin.test.Test
 
 
 
-@Epic("Product Management")
+@Epic(AUTOMATIONEXERCISE_EPIC)
 @Feature("Product Search")
 @Story("Verify product search functionality")
 @QaBaseTest
