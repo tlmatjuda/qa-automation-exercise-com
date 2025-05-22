@@ -7,4 +7,4 @@ import org.springframework.context.annotation.ComponentScan
 @QaBaseAutomationModule
 @ComponentScan( basePackageClasses = [AutomationExercisePackage::class])
 @EnableConfigurationProperties(AutoExProperties::class)
-class QaAutomationExerciseComApplication
+class AutomationExerciseModule
