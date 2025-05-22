@@ -23,7 +23,7 @@ class TestCasesTest(
     val homePage = pageFactory.get<HomePage>()
 
     @Test
-    @Description("Verify Test Cases Page")
+    @Description("Test Cases Page is visible")
     fun verifyTestCasesPage() {
         homePage
             .open()

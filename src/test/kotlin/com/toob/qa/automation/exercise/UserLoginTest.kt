@@ -19,7 +19,7 @@ import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test
 
 @Epic(AUTOMATIONEXERCISE_EPIC)
-@Feature("Positive Login")
+@Feature("Login Page")
 @Story("User logs in with credentials")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @QaBaseTest
@@ -32,7 +32,7 @@ class UserLoginTest(
 
     @Test
     @Order(1)
-    @Description("Login User with correct email and password")
+    @Description("Login with \"Correct\" details")
     fun loginWithValidCredentials() {
         homePage
             .open()
@@ -53,7 +53,7 @@ class UserLoginTest(
 
     @Test
     @Order(2)
-    @Description("Login User with incorrect email and password")
+    @Description("Login with \"InCorrect\" details")
     fun loginWithInvalidCredentials() {
         homePage
             .open()
@@ -66,7 +66,7 @@ class UserLoginTest(
             .enterPassword("wrongPassword")
             .clickLogin()
 
-        step("Verify error message is displayed") {
+        step("Expect error message to display") {
             byCss("form[action='/login'] p")
                 .shouldHave(text("Your email or password is incorrect!"))
         }

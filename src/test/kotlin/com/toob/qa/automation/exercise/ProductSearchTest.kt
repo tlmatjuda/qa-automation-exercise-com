@@ -24,7 +24,7 @@ class ProductSearchTest(pageFactory: PageFactory) {
     val productsPage = pageFactory.get<ProductsPage>()
 
     @Test
-    @Description("verify search returns relevant products")
+    @Description("Verify that the search returns relevant products")
     fun verifyProductSearch() {
         homePage
             .open()

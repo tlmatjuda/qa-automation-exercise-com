@@ -14,7 +14,7 @@ import kotlin.test.Test
 
 
 @Epic(AUTOMATIONEXERCISE_EPIC)
-@Feature("Contact Us Form Functionality")
+@Feature("Contact Us Page")
 @Story("We can \"Contact Us\"")
 @QaBaseTest
 class ContactUsTest(

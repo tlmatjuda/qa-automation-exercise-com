@@ -14,8 +14,8 @@ import io.qameta.allure.Story
 import org.junit.jupiter.api.Test
 
 @Epic(AUTOMATIONEXERCISE_EPIC)
-@Feature("Home Page UI")
-@Story("Verify essential elements load on Home Page")
+@Feature("Home Page")
+@Story("Verify essential elements can load on Home Page")
 @QaBaseTest
 class HomeTest(pageFactory: PageFactory) {
 
@@ -25,7 +25,7 @@ class HomeTest(pageFactory: PageFactory) {
     val subscriptionPage = pageFactory.get<SubscriptionPage>()
 
     @Test
-    @Description("Verify Home Page visibility and sections")
+    @Description("Verify different sections are visible")
     fun shouldLoadHomePageElements() {
         step("Home page loads successfully") {
             homePage

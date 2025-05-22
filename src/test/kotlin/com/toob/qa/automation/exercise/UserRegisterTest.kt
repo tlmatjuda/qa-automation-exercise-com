@@ -32,7 +32,7 @@ class UserRegisterTest(
 
     @Test
     @Order(1)
-    @Description("Complete registration and account deletion flow")
+    @Description("Complete registration and then remove the account when done")
     fun registerAndDeleteUser() {
 
         // 1. Launch browser
@@ -81,7 +81,7 @@ class UserRegisterTest(
 
     @Test
     @Order(2)
-    @Description("Register User with existing email")
+    @Description("Register User with existing credentials")
     fun registerExistingUser() {
 
         val signupPage = homePage
@@ -89,14 +89,14 @@ class UserRegisterTest(
             .verifyVisible()
             .clickSignupLogin()
 
-        val accountInfoPage = signupPage
-            .verifyVisible()
-            .enterNameAndEmail(
-                autoExProperties.userName,
-                autoExProperties.userEmail
-            )
-            .clickSignup()
-            .verifyEmailAlreadyExistsError()
+		signupPage
+			.verifyVisible()
+			.enterNameAndEmail(
+				autoExProperties.userName,
+				autoExProperties.userEmail
+			)
+			.clickSignup()
+			.verifyEmailAlreadyExistsError()
     }
 
 }
