@@ -1,28 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>com.toob.qabase</groupId>
-		<artifactId>qabase-framework</artifactId>
-		<version>0.0.1</version>
-	</parent>
-
-	<groupId>com.toob.qa.automation.exercise</groupId>
-	<artifactId>qa-automation-exercise-com</artifactId>
-	<version>0.0.1</version>
-	<name>QA Automation Exercise com</name>
-	<description>Demo project for QA Base - Web Ui Automation</description>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Project setup using QABase as a BOM (not as parent) -->
 
 
-	<dependencies>
+    <groupId>com.toob.qa</groupId>
+    <artifactId>qa-automation-exercise-com</artifactId>
+    <version>0.0.1</version>
+    <name>QABase Web UI Showcase - automationexercise.com</name>
+    <description>Demo project showcasing QABase Web UI automation with Selenide against automationexercise.com</description>
 
-		<!-- QA BASE by TOOB -->
-		<dependency>
-			<groupId>com.toob.qabase</groupId>
-			<artifactId>qabase-web-ui</artifactId>
-		</dependency>
-	</dependencies>
+    <!-- Basic project properties (Java version, encoding, optional JUnit pinning) -->
+    <properties>
+        <!-- QABase framework version used for BOM import -->
+        <qabase-famework.version>1.3.0</qabase-famework.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- If you want to pin JUnit yourself (optional when QABase provides it) -->
+        <junit.jupiter.version>5.10.2</junit.jupiter.version>
+    </properties>
+
+
+    <!-- Import QABase framework as a BOM. This ensures consistent versions across QABase modules without hardcoding them. -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.toobprojects</groupId>
+                <artifactId>qabase-framework</artifactId>
+                <version>${qabase-famework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <!-- Add QABase Web UI module for Selenide + test utilities -->
+    <dependencies>
+        <!-- QA BASE by TOOB -->
+        <dependency>
+            <groupId>io.github.toobprojects</groupId>
+            <artifactId>qabase-web-ui</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <!-- Build plugins: compiler, test runner, optional Allure reporting -->
+    <build>
+        <plugins>
+            <!-- JUnit 5 runner (safe even if QABase already adds it) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+
+            <!-- Compiler plugin (match your Java version) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${maven.compiler.source}</release>
+                </configuration>
+            </plugin>
+
+            <!-- (Optional) Allure plugin if you want local report generation via mvn -->
+            <!-- QABase often wires Allure, but adding this is harmless if you want CLI tasks -->
+            <!--
+            <plugin>
+              <groupId>io.qameta.allure</groupId>
+              <artifactId>allure-maven</artifactId>
+              <version>2.12.0</version>
+            </plugin>
+            -->
+        </plugins>
+    </build>
 
 </project>
