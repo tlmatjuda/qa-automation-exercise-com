@@ -13,11 +13,21 @@
 
     <!-- Basic project properties (Java version, encoding, optional JUnit pinning) -->
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <!-- QABase framework version used for BOM import -->
         <qabase-famework.version>1.3.0</qabase-famework.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Maven Compiler settings -->
+        <java.version>17</java.version>
+        <lombok.version>1.18.38</lombok.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>4.0.0-beta-2</maven-compiler-plugin.version>
+
+
         <!-- If you want to pin JUnit yourself (optional when QABase provides it) -->
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
@@ -44,17 +54,30 @@
             <groupId>io.github.toobprojects</groupId>
             <artifactId>qabase-web-ui</artifactId>
         </dependency>
+
+        <!-- Single Lombok dep for compile-time (and IDE) visibility -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 
     <!-- Build plugins: compiler, test runner, optional Allure reporting -->
     <build>
+
+        <!-- Make sure Java tests are included -->
+<!--        <sourceDirectory>src/main/java</sourceDirectory>-->
+<!--        <testSourceDirectory>src/test/java</testSourceDirectory>-->
+
         <plugins>
             <!-- JUnit 5 runner (safe even if QABase already adds it) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
                 </configuration>
@@ -64,10 +87,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>${maven.compiler.source}</release>
+
+                    <!-- Run Lombok as an annotation processor for main sources -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
+
+                <!-- Ensure tests also get Lombok processing -->
+                <executions>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                    <version>${lombok.version}</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- (Optional) Allure plugin if you want local report generation via mvn -->
