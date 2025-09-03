@@ -11,5 +11,4 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @QaBaseAutomationModule
 @ComponentScan( basePackageClasses = AutomationPackage.class )
-public class AutomationFactory {
-}
+public class AutomationFactory {}
