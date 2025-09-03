@@ -8,6 +8,9 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import org.junit.jupiter.api.BeforeAll;
 
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @QaBaseTest
 public abstract class BaseUiTest {
 
@@ -18,6 +21,10 @@ public abstract class BaseUiTest {
     @Step("Boot context, load credentials, open home")
     void boot() {
         this.loginDetails = TestEnv.credentials();
+        assertNotNull(loginDetails, "Your login details are not set! Please, check the README.md for details.");
+        assertNotNull(loginDetails.name(), "Your login details are not set!");
+        assertNotNull(loginDetails.email(), "Your login details are not set!");
+        assertNotNull(loginDetails.password(), "Your login details are not set!");
         Sel.open();
     }
 }
