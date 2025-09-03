@@ -17,7 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- QABase framework version used for BOM import -->
-        <qabase-famework.version>1.3.0</qabase-famework.version>
+        <qabase-famework.version>1.3.1</qabase-famework.version>
 
         <!-- Maven Compiler settings -->
         <java.version>17</java.version>
@@ -26,10 +26,6 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>4.0.0-beta-2</maven-compiler-plugin.version>
-
-
-        <!-- If you want to pin JUnit yourself (optional when QABase provides it) -->
-        <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
 
 
