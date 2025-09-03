@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 public final class TestEnv {
     private TestEnv() {}
 
-    public static Credentials credentials() {
-        return Credentials.builder()
+    public static LoginDetails credentials() {
+        return LoginDetails.builder()
                 .name(req("AUTOMATIONEXERCISE_USER_NAME"))
                 .email(req("AUTOMATIONEXERCISE_USER_EMAIL"))
                 .password(req("AUTOMATIONEXERCISE_PASSWORD"))

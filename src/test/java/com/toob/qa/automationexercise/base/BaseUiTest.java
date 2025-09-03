@@ -1,7 +1,6 @@
 package com.toob.qa.automationexercise.base;
 
-import com.codeborne.selenide.Selenide;
-import com.toob.qa.automationexercise.config.Credentials;
+import com.toob.qa.automationexercise.config.LoginDetails;
 import com.toob.qa.automationexercise.config.TestEnv;
 import com.toob.qabase.QaBaseTest;
 import com.toob.qabase.webui.dsl.Sel;
@@ -13,12 +12,12 @@ import org.junit.jupiter.api.BeforeAll;
 public abstract class BaseUiTest {
 
     @Getter
-    protected Credentials credentials;
+    protected LoginDetails loginDetails;
 
     @BeforeAll
     @Step("Boot context, load credentials, open home")
     void boot() {
-        this.credentials = TestEnv.credentials();
+        this.loginDetails = TestEnv.credentials();
         Sel.open();
     }
 }

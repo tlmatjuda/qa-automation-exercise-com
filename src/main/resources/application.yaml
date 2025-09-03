@@ -11,12 +11,3 @@ qabase:
     browser-window-size: "1920x1080"
     timeout: 10000
     headless: true
-
-
-
-# AUTOMATIONEXERCISE COM
-# ======================================================================================================================
-automationexercise-com:
-  user-name: "${AUTOMATIONEXERCISE_USER_NAME}"
-  user-email: "${AUTOMATIONEXERCISE_USER_EMAIL}"
-  user-password: "${AUTOMATIONEXERCISE_PASSWORD}"
