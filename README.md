@@ -164,13 +164,19 @@ public class AuthFlow {
 
   @Step("Login OK")
   public void loginOk(String email, String password, String displayName) {
-    login.open().enterEmail(email).enterPassword(password).submit();
+    login.open()
+            .enterEmail(email)
+            .enterPassword(password)
+            .submit();
     header.shouldShowLoggedInUser(displayName);
   }
 
   @Step("Login BAD")
   public void loginBad(String email, String wrongPassword) {
-    login.open().enterEmail(email).enterPassword(wrongPassword).submit();
+    login.open()
+            .enterEmail(email)
+            .enterPassword(wrongPassword)
+            .submit();
     UI.shouldSee(".login-form .alert-danger", "Your email or password is incorrect!");
   }
 }
