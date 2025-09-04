@@ -156,7 +156,8 @@ public class HeaderBar {
 ### Flow (business): `AuthFlow`
 
 ```java
-@Component @RequiredArgsConstructor
+@Component 
+@RequiredArgsConstructor
 public class AuthFlow {
   private final HeaderBar header;
   private final LoginPage login;
@@ -178,7 +179,7 @@ public class AuthFlow {
 ### Test (spec): `LoginTests`
 
 ```java
-@SpringBootTest
+@QaBaseTest
 class LoginTests extends BaseUiTest {
 
   @Test
@@ -204,88 +205,6 @@ class LoginTests extends BaseUiTest {
 
 ---
 
-## 🛒 Example – Cart “Add & Verify Quantity”
-
-**Product Page service**
-
-```java
-@Component
-public class ProductDetailPage {
-
-  @Step("Verify product details visible")
-  public ProductDetailPage verifyVisible() {
-    UI.shouldBeVisible(".product-information");
-    return this;
-  }
-
-  @Step("Add to cart and go to cart")
-  public ProductDetailPage addToCart() {
-    UI.clickCss("button.cart");
-    UI.shouldBeVisible("#cartModal .modal-content"); // wait modal
-    UI.shouldSeeText("Added!");                      // confirm text
-    UI.clickCssJs("#cartModal a[href='/view_cart']");// click in-modal link (avoid overlay)
-    return this;
-  }
-}
-```
-
-**Cart Page service**
-
-```java
-@Component
-public class CartPage {
-
-  @Step("Verify quantity for product id={productId} is {qty}")
-  public CartPage shouldHaveQuantity(int productId, int qty) {
-    UI.shouldSee("tr#product-" + productId + " .cart_quantity",
-                 String.valueOf(qty));
-    return this;
-  }
-}
-```
-
-**Flow**
-
-```java
-@Component @RequiredArgsConstructor
-public class CartFlow {
-  private final HeaderBar header;
-  private final ProductsPage products;
-  private final ProductDetailPage details;
-  private final CartPage cart;
-
-  @Step("Add product and verify in cart")
-  public void addAndVerify(int productId, int qty) {
-    header.openProducts();
-    products.shouldShowAllProducts()
-            .openProductById(productId, qty);  // scroll + JS click inside
-    details.verifyVisible()
-           .addToCart();
-    cart.shouldHaveQuantity(productId, qty);
-  }
-}
-```
-
-**Test**
-
-```java
-@SpringBootTest
-class CartTests extends BaseUiTest {
-
-  @Test
-  void add_product_in_cart() {
-    cart.addAndVerify(1, 1);
-  }
-
-  @Test
-  void verify_product_quantity() {
-    cart.addAndVerify(1, 3);
-  }
-}
-```
-
----
-
 ## 🧪 Running the Tests
 
 ```bash
@@ -300,7 +219,89 @@ mvn clean verify
 
 ### (Optional) Allure Reporting
 
+Because this project demonstrates using QABase as a BOM (and not as a Maven parent), you won’t inherit the framework’s pre-wired Allure profile. To generate Allure reports you must define a local profile named allure-reports in your POM. Once this profile exists, you can run with either the profile id or a property.
+
 If your local Maven has Allure plugin configured, you can generate/serve the report:
+Copy-paste profile snippet (taken from this project’s pom.xml):
+
+```xml
+<!-- Local profile with the SAME NAME as your framework: allure-reports
+     Note: Because this project uses QABase as a BOM (not as a parent),
+     you must add this profile in your own POM to enable Allure report generation. -->
+<profiles>
+    <profile>
+        <id>allure-reports</id>
+
+        <!-- Option A: activate by profile id (-Pallure-reports).
+             Option B (also works): activate with -Dallure.reports=true -->
+        <activation>
+            <property>
+                <name>allure.reports</name>
+                <value>true</value>
+            </property>
+        </activation>
+
+        <dependencies>
+            <!-- This transitively brings allure-java-commons (annotations) -->
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-junit5</artifactId>
+            </dependency>
+        </dependencies>
+
+        <build>
+            <plugins>
+                <!-- Pass toggles into the test JVMs -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <!-- Your framework toggle -->
+                            <allure.reports>true</allure.reports>
+                            <!-- Where to write raw results -->
+                            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+
+                <!-- (Optional) If you use integration tests with Failsafe -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <allure.reports>true</allure.reports>
+                            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+
+                <!-- Build the HTML site at 'verify' -->
+                <plugin>
+                    <groupId>io.qameta.allure</groupId>
+                    <artifactId>allure-maven</artifactId>
+                    <version>${allure-maven.version}</version>
+                    <executions>
+                        <execution>
+                            <id>allure-report</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+```
+
+
+
 
 ```bash
 mvn clean verify -Dallure.reports=true
