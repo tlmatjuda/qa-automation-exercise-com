@@ -221,7 +221,6 @@ mvn clean verify
 
 Because this project demonstrates using QABase as a BOM (and not as a Maven parent), you won’t inherit the framework’s pre-wired Allure profile. To generate Allure reports you must define a local profile named allure-reports in your POM. Once this profile exists, you can run with either the profile id or a property.
 
-If your local Maven has Allure plugin configured, you can generate/serve the report:
 Copy-paste profile snippet (taken from this project’s pom.xml):
 
 ```xml
@@ -300,8 +299,7 @@ Copy-paste profile snippet (taken from this project’s pom.xml):
 </profiles>
 ```
 
-
-
+If your local Maven has Allure plugin configured, you can generate/serve the report:
 
 ```bash
 mvn clean verify -Dallure.reports=true
