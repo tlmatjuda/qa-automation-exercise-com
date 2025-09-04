@@ -191,8 +191,8 @@ class LoginTests extends BaseUiTest {
   @Test
   void shouldLoginSuccessfully() {
     auth.loginOk(
-      env.userEmail(),
-      env.userPassword(),
+      loginDetails.userEmail(),
+      loginDetails.userPassword(),
       env.userName()
     );
   }
