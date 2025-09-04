@@ -52,7 +52,7 @@ This project shows **how to use QABase without `<parent>`** by importing the fra
 
 ```xml
 <properties>
-  <qabase-famework.version>1.4.0</qabase-famework.version>
+  <qabase-famework.version>1.4.1</qabase-famework.version>
   <java.version>17</java.version>
   <lombok.version>1.18.38</lombok.version>
 </properties>
