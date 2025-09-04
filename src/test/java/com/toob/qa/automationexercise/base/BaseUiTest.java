@@ -8,7 +8,6 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import org.junit.jupiter.api.BeforeAll;
 
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QaBaseTest
