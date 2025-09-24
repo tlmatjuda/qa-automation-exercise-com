@@ -1,32 +1,28 @@
 package com.toob.qa.automationexercise.flows;
 
+import com.toob.qa.automationexercise.base.TestContext;
 import com.toob.qa.automationexercise.config.LoginDetails;
-import com.toob.qa.automationexercise.pages.HeaderBar;
-import com.toob.qa.automationexercise.pages.LoginPage;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class AuthFlow {
 
-    private final HeaderBar header;
-    private final LoginPage login;
+    private final TestContext ctx;
 
     @Step("Login OK as {creds.name}")
     public void loginOk(LoginDetails creds) {
-        header.openLogin();
-        login.fillEmail(creds.email())
+        ctx.headerBar.openLogin();
+        ctx.loginPage.fillEmail(creds.email())
                 .fillPassword(creds.password())
                 .submit();
-        header.shouldShowLoggedInUser(creds.name());
+        ctx.headerBar.shouldShowLoggedInUser(creds.name());
     }
 
     @Step("Login BAD password")
     public void loginBadPassword(String email, String badPass) {
-        header.openLogin();
-        login.fillEmail(email).fillPassword(badPass).submit()
+        ctx.headerBar.openLogin();
+        ctx.loginPage.fillEmail(email).fillPassword(badPass).submit()
                 .shouldRejectBadCredentials();
     }
 }

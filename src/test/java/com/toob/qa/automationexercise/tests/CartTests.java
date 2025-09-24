@@ -2,19 +2,19 @@ package com.toob.qa.automationexercise.tests;
 
 import com.toob.qa.automationexercise.base.BaseUiTest;
 import com.toob.qa.automationexercise.flows.CartFlow;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Cart")
-@RequiredArgsConstructor
-public class CartTests extends BaseUiTest {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    private final CartFlow cart;
+@DisplayName("Cart")
+class CartTests extends BaseUiTest {
 
     @Test
     @DisplayName("TC12: Add product to cart")
     void shouldAddProductToCart() {
-        cart.addAndVerify(1, 3);
+        CartFlow cartFlow = ctx.cartFlow;
+        assertNotNull(cartFlow);
+        cartFlow.addAndVerify(1, 3);
     }
 }

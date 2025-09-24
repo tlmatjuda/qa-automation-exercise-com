@@ -21,7 +21,7 @@
         <lombok.version>1.18.38</lombok.version>
 
         <!-- QABase framework version used for BOM import -->
-        <qabase-famework.version>1.4.1</qabase-famework.version>
+        <qabase-famework.version>2.0.0</qabase-famework.version>
 
         <!-- Allure Stuff -->
         <allure-maven.version>2.15.2</allure-maven.version>

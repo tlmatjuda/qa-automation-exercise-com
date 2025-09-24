@@ -1,13 +1,11 @@
 package com.toob.qa.automationexercise.pages;
 
 import io.qameta.allure.Step;
-import org.springframework.stereotype.Component;
 
 import static com.toob.qabase.webui.dsl.UI.shouldBeVisible;
 import static com.toob.qabase.webui.dsl.UI.shouldSeeText;
 import static com.toob.qabase.webui.dsl.UI.shouldSee;
 
-@Component
 public class CartPage {
 
     @Step("Verify cart visible")

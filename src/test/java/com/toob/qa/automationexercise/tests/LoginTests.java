@@ -1,25 +1,31 @@
 package com.toob.qa.automationexercise.tests;
 
 import com.toob.qa.automationexercise.base.BaseUiTest;
+import com.toob.qa.automationexercise.base.TestContext;
 import com.toob.qa.automationexercise.flows.AuthFlow;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Authentication")
-@RequiredArgsConstructor
-public class LoginTests extends BaseUiTest {
-
-    private final AuthFlow auth;
+class LoginTests extends BaseUiTest {
 
     @Test
     @DisplayName("TC2: Login with correct email/password")
     void shouldLoginSuccessfully() {
-        auth.loginOk(loginDetails);
+        AuthFlow authFlow = ctx.authFlow;
+        assertNotNull(authFlow);
+        authFlow.loginOk(loginDetails);
     }
 
     @Test @DisplayName("TC3: Login with incorrect password")
     void shouldFailLogin() {
-        auth.loginBadPassword(loginDetails.email(), "wrong-pass-123");
+        AuthFlow authFlow = ctx.authFlow;
+        assertNotNull(authFlow);
+        authFlow.loginBadPassword(loginDetails.email(), "wrong-pass-123");
     }
 }
