@@ -52,7 +52,7 @@ This project shows **how to use QABase without `<parent>`** by importing the fra
 
 ```xml
 <properties>
-  <qabase-famework.version>1.4.1</qabase-famework.version>
+  <qabase-famework.version>2.0.0</qabase-famework.version>
   <java.version>17</java.version>
   <lombok.version>1.18.38</lombok.version>
 </properties>
@@ -136,7 +136,6 @@ We lean on QABase’s DSL:
 ### Page (service): `HeaderBar`
 
 ```java
-@Component
 public class HeaderBar {
   @Step("Open Products page")
   public HeaderBar openProducts() {
@@ -156,24 +155,23 @@ public class HeaderBar {
 ### Flow (business): `AuthFlow`
 
 ```java
-@Component 
 @RequiredArgsConstructor
 public class AuthFlow {
-  private final HeaderBar header;
-  private final LoginPage login;
+    
+  private final TestContext ctx;
 
   @Step("Login OK")
   public void loginOk(String email, String password, String displayName) {
-    login.open()
+    ctx.loginPage.open()
             .enterEmail(email)
             .enterPassword(password)
             .submit();
-    header.shouldShowLoggedInUser(displayName);
+    ctx.headerBar.shouldShowLoggedInUser(displayName);
   }
 
   @Step("Login BAD")
   public void loginBad(String email, String wrongPassword) {
-    login.open()
+    ctx.loginPage.open()
             .enterEmail(email)
             .enterPassword(wrongPassword)
             .submit();
@@ -190,7 +188,7 @@ class LoginTests extends BaseUiTest {
 
   @Test
   void shouldLoginSuccessfully() {
-    auth.loginOk(
+    ctx.authFlow.loginOk(
       loginDetails.userEmail(),
       loginDetails.userPassword(),
       env.userName()
@@ -199,7 +197,7 @@ class LoginTests extends BaseUiTest {
 
   @Test
   void shouldRejectIncorrectPassword() {
-    auth.loginBad(
+    ctx.authFlow.loginBad(
       env.userEmail(),
       "not-the-password"
     );
